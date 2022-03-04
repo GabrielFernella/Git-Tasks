@@ -1,7 +1,7 @@
 module.exports = {
 
   User: {
-    async tasks(_, user, {dataSources}){
+    async tasks(user, _, {dataSources}){ // a ordem dos parametros passados influenciam o resultado
       return await dataSources.tasksRegisterService.getTasks(user.id)
     }
   },
@@ -21,5 +21,3 @@ module.exports = {
     }
   }
 }
-
-//6:10
