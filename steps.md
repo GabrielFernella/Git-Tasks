@@ -10,4 +10,5 @@
 9. yarn knex migrate:latest
 10. yarn add apollo-datasource-rest
 11. yarn knex migrate:make create_table_tasks
+12. yarn add jsonwebtoken
 
