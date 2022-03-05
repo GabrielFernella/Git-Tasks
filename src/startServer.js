@@ -1,40 +1,18 @@
-const { ApolloServer} = require('apollo-server');
-const GitHubService = require('./services/GitHub.service');
-const TasksRegisterService = require('./services/TasksRegisterService');
-const UserRegisterService = require('./services/UserRegisterService');
+const { ApolloServer } = require('apollo-server');
 
-function startServer({typeDefs, resolvers, services}){
+function startServer({ typeDefs, resolvers, config }) {
   // mongoose.connect('mongodb://localhost:27017/graphql', {
   //   useNewUrlParser: true,
   //   useUnifiedTopology: true, // para não mostrar os warns quando iniciar a aplicação 
   // });
 
   const server = new ApolloServer({
-    typeDefs, 
+    typeDefs,
     resolvers,
-    context: ({req}) =>  {
-      const user_id = req.headers.authorization;
+    ...config
+  });
 
-      return {
-        user_id
-      }
-    },
-    dataSources:() => ({
-      githubService: GitHubService,
-      userRegisterService: UserRegisterService,
-      tasksRegisterService:TasksRegisterService
-    }),
-    //dataSources:() => services,
-    formatError: (err) => {
-    if(err.message.startsWith("Error")){
-      return new Error(err.message)
-    }
-
-    return err;
-  },
-});
-
-  server.listen().then(({url}) => console.log(`💥 Server started at ${url}`));
+  server.listen().then(({ url }) => console.log(`💥 Server started at ${url}`));
 }
 
-module.exports = {startServer};
+module.exports = { startServer };

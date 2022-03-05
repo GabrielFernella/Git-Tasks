@@ -2,6 +2,10 @@ module.exports = {
   Query: {
     async tasks(_, __, { dataSources, user_id }) { //entender melhor essa parte dos parametros
       return await dataSources.tasksRegisterService.getTasks(user_id);
+    },
+
+    async task(_, { id }, { dataSources, user_id }) { //entender melhor essa parte dos parametros
+      return await dataSources.tasksRegisterService.getTask(user_id, id);
     }
   },
   Mutation: {
